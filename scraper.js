@@ -218,7 +218,9 @@ async function clickUserProfile(page, user) {
     }, user.profile);
 
     // Click the user account if the user entered a correct account name. Otherwise, choose 1st account.
-    await page.click('li.profile:nth-child(' + indexOfUserAccount + ') > div:nth-child(1) > a:nth-child(1)');
+    // await page.click('li.profile:nth-child(' + indexOfUserAccount + ') > div:nth-child(1) > a:nth-child(1)');
+    await page.waitForSelector('li.profile:nth-child(1) > div > .profile-link > .avatar-wrapper > .profile-icon');
+    await page.click('[data-uia="action-select-profile+primary"]');
     console.log("Loading user profile...");
     await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 0 });
 }
