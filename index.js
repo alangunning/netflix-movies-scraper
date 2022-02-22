@@ -72,7 +72,7 @@ let validUsername = false, validPassword = false, validProfile = false;
     const today = new Date();
     let month = (today.getMonth() + 1).toString();
     let day = today.getDate().toString();
-    let year = today.getFullYear().toString().substring(2,4);
+    let year = today.getFullYear().toString().substring(2, 4);
     let strDate = month + day + year;
     const csvFileName = 'netflix-movies-as-of-' + strDate + '.csv';
     const csv = new ObjectsToCsv(results);
@@ -82,3 +82,4 @@ let validUsername = false, validPassword = false, validProfile = false;
 
     process.exitCode = 1;
 })();
+

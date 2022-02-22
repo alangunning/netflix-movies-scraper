@@ -5,7 +5,7 @@ const getApiKey = require('./get-api-key.js');
 const netflixMoviesBaseUrl = 'https://www.netflix.com/browse/genre/';
 const netflixMoviesExtraParams = '?so=az';
 const netflixLoginPage = 'https://www.netflix.com/login';
-const netflixMoviesPage ='https://www.netflix.com/browse/genre/34399';
+const netflixMoviesPage = 'https://www.netflix.com/browse/genre/34399';
 const omdbApiBaseUrl = 'http://www.omdbapi.com/';
 
 let results = [];
@@ -21,7 +21,7 @@ module.exports = {
         let page = await browser.newPage();
 
         await page.setViewport({ width: 1280, height: 800 });
-    
+
         // Open login page and login
         console.log("Loading Netflix login page...")
         await page.goto(netflixLoginPage);
@@ -30,7 +30,7 @@ module.exports = {
         await page.keyboard.press('Enter');
         console.log("Logging in to Netflix...");
         await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 0 });
-    
+
         await clickUserProfile(page, user);
 
         await page.goto(netflixMoviesPage, { waitUntil: 'networkidle2', timeout: 0 });
@@ -54,7 +54,7 @@ module.exports = {
 
             return codes;
         });
-    
+
         for (let c of codes) {
             console.log("Loading genre: " + c.name + " - " + c.code);
             await page.goto(netflixMoviesBaseUrl + c.code + netflixMoviesExtraParams, { waitUntil: 'networkidle2', timeout: 0 });
@@ -70,15 +70,15 @@ module.exports = {
             if (profileSelectionRequired) {
                 console.log("User profile needed...");
                 await clickUserProfile(page, user);
-            } 
+            }
 
             results = await scrapeMovies(page, extractItems, results, user);
         }
-    
+
         console.log("Completed scraping Netflix movies.");
 
         browser.close();
-    
+
         return results;
     }
 };
@@ -140,7 +140,7 @@ async function scrapeMovies(
             console.log("Request Options:");
             console.log(requestOptions);
 
-            console.log("Requesting information about " + movie.title +" from Omdb API...");
+            console.log("Requesting information about " + movie.title + " from Omdb API...");
 
             let resultJSON;
             try {
@@ -151,8 +151,8 @@ async function scrapeMovies(
             } catch {
                 resultJSON = 'False';
             }
-            
-            if (resultJSON!== 'False' && resultJSON !== undefined && resultJSON !== null && resultJSON !== '') {
+
+            if (resultJSON !== 'False' && resultJSON !== undefined && resultJSON !== null && resultJSON !== '') {
                 console.log("Response from OMDB passes checks.");
 
                 if (resultJSON.hasOwnProperty('imdbRating')) {
@@ -173,7 +173,7 @@ async function scrapeMovies(
 
                 movie.tomatometer = 'N/A';
                 if (resultJSON.hasOwnProperty('Ratings')) {
-                    for(let obj of resultJSON.Ratings) {
+                    for (let obj of resultJSON.Ratings) {
                         if (obj.Source === 'Rotten Tomatoes') {
                             movie.tomatometer = obj.Value;
                             break;
@@ -200,6 +200,7 @@ function movieExists(arrOfMovieObjects, nameOfMovie) {
 }
 
 async function clickUserProfile(page, user) {
+
     const indexOfUserAccount = await page.evaluate((profile) => {
         let userAccounts = document.querySelector("#appMountPoint > div > div > div:nth-child(1) > div.bd.dark-background > div.profiles-gate-container > div > div > ul").children;
 

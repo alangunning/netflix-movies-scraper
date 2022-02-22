@@ -27,7 +27,7 @@ module.exports = {
                 use: use
             };
             return user;
-        }); 
+        });
 
         console.log("Temp User:");
         console.log(tempUser);
