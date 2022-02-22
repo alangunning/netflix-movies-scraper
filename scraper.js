@@ -222,5 +222,5 @@ async function clickUserProfile(page, user) {
     await page.waitForSelector('li.profile:nth-child(1) > div > .profile-link > .avatar-wrapper > .profile-icon');
     await page.click('[data-uia="action-select-profile+primary"]');
     console.log("Loading user profile...");
-    await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 0 });
+    //await page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 0 });
 }
