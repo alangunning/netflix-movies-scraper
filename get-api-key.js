@@ -44,7 +44,6 @@ module.exports = {
         await page.goto(tempEmailUrl, { waitUntil: 'networkidle2', timeout: 0 });
         let omdbEmailExists = false;
         while (!omdbEmailExists) {
-            console.log("Inside while loop.");
             omdbEmailExists = await page.evaluate(() => {
                 let mostRecentEmail = document.querySelector('#schranka > tr').children[0].childNodes[1].nodeValue.trim();
                 if (mostRecentEmail !== 'The OMDb API') {
@@ -54,7 +53,6 @@ module.exports = {
                     return true;
                 }
             });
-            console.log(omdbEmailExists);
         }
 
         console.log("Loading email...");
