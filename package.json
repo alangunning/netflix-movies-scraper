@@ -1,6 +1,6 @@
 {
   "name": "netflix-movies-scaper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "\"A Node.js console application that uses Puppeteer to scrape data from Netflix and request data from OMDB.\"",
   "main": "index.js",
   "dependencies": {
